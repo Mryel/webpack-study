@@ -4,6 +4,8 @@
   "description": "study",
   "main": "index.js",
   "scripts": {
+    "analyz": "cross-env NODE_ENV=prodution npm_config_report=true npm run build",
+    "dll": "webpack --config build/webpack.dll.config.js",
     "dev": "webpack-dev-server --config build/webpack.config.js --open",
     "build": "webpack --config build/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,8 +17,10 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^9.7.3",
+    "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^6.0.3",
     "css-loader": "^3.4.0",
     "file-loader": "^5.0.2",
     "happypack": "^5.0.1",
@@ -33,6 +37,7 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.4",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1",
     "webpack-merge": "^4.2.2",

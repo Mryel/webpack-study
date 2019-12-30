@@ -6,6 +6,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const firstPlugin = require('./webpack-firstPlugin.js')
 const Webapck = require('webpack')
 const devMode = process.argv.indexOf('--mode=prodution') === -1
 const HappyPack = require('happypack')
@@ -133,7 +136,19 @@ module.exports = {
                 }
             ],
             threadPool: happyThreadPool
-        })
+        }),
+        new Webapck.DllReferencePlugin({
+          context: __dirname,
+          manifest: require('./vendor-manifest.json')
+        }),
+        new CopyWebpackPlugin([   // 拷贝生成的文件到dist目录 这样不必每次手动去cv
+          {from: 'static', to: 'static'}
+        ]),
+        new BundleAnalyzerPlugin({
+          analyzerHost: '127.0.0.1',
+          analyzerPort: 8889
+        }),
+        new firstPlugin()
     ]
 }
 // 打包图片、字体、媒体等文件
